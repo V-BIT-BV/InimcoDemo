@@ -1,0 +1,26 @@
+<div class="card">
+  <h2 class="card__title">What skills does <i>{{ person.firstName }}</i> have</h2>
+  <div class="tag__list" *ngIf="skills?.length">
+    <div class="tag" *ngFor="let skill of skills" (click)="removeSkill(skill)">
+      <span>{{skill}}</span>
+    </div>
+  </div>
+  <form [formGroup]="skillForm">    
+    <div class="form__row">
+      <label for="skill">Skill</label>
+      <div class="form__row--with-button">
+        <input id="skill" type="text" formControlName="skill" />
+        <button class="button--secondary-icon" (click)="addSkill()" [disabled]="(personService.isSavingSkills$ | async)"><fa-icon [icon]="faPlus" /></button>
+      </div>
+      <span class="form__error" *ngIf="skillControl.dirty && skillControl?.errors?.['required']">Skill is required</span>
+      <span class="form__error" *ngIf="skillControl.dirty && skillControl?.errors?.['notUnique']">Skill has already been added</span>
+    </div>
+  </form>
+  <div class="card__actions">
+    <button *ngIf="(personService.isSavingSkills$ | async) === false; else loader" class="button--primary" (click)="saveSkills()">Save skills and continue</button>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader />
+</ng-template>

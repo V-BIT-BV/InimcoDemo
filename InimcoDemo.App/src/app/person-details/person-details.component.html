@@ -1,0 +1,10 @@
+<div class="card">
+    <h2 class="card__title">The following information was entered for <i>{{ person.firstName }}</i></h2>
+    <div *ngIf="!!personDetails; else loader">
+      <em style="white-space: pre-wrap;">{{personDetails}}</em>
+    </div>  
+  </div>
+  
+  <ng-template #loader>
+    <app-loader />
+  </ng-template>

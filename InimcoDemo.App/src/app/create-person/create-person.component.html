@@ -1,0 +1,22 @@
+<div class="card">
+  <h2 class="card__title">Please provide the name of the person</h2>
+  <form [formGroup]="personForm">
+    <div class="form__row">
+      <label for="firstName">First name</label>
+      <input id="firstName" type="text" formControlName="firstName" />
+      <span class="form__error" *ngIf="!firstNameControl.pristine && firstNameControl?.errors?.['required']">First name is required</span>
+    </div>
+    <div class="form__row">
+      <label for="lastName">Last name</label>
+      <input id="lastName" type="text" formControlName="lastName" />
+      <span class="form__error" *ngIf="!lastNameControl.pristine && lastNameControl?.errors?.['required']">Last name is required</span>
+    </div>
+  </form>
+  <div class="card__actions">
+    <button *ngIf="(personService.isPersonCreating$ | async) === false; else loader" class="button--primary" (click)="createPerson()">Create person and continue</button>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader />
+</ng-template>

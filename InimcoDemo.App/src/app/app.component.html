@@ -1,0 +1,11 @@
+<main>
+  <div class="app__title">
+    <h1>Inimco Demo App by Bram</h1>
+  </div>
+  <div class="app__content">
+    <app-create-person *ngIf="!person" (personCreated)="personCreated($event)" />
+    <app-add-skills *ngIf="person && !skillsAdded" [person]="person" (skillsSaved)="skillsSaved()" />
+    <app-add-social-media-account *ngIf="person && skillsAdded && !socialMediaAccountsAdded" [person]="person" (socialMediaAccountsSaved)="socialMediaAccountsSaved()" />
+    <app-person-details *ngIf="person && skillsAdded && socialMediaAccountsAdded" [person]="person" />
+  </div>
+</main>

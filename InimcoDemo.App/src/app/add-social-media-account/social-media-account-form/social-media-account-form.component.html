@@ -1,0 +1,6 @@
+<form class="account" [formGroup]="accountForm">
+  <fa-icon [fixedWidth]="true" [icon]="config.icon" [class]="{error: accountControl.invalid}" [title]="accountControl.invalid ? 'The username does not meet the validation requirements' : config.baseUrl + (accountControl.value ?? '{username}')" />
+  <input type="text" formControlName="account" />
+  <button class="button--icon button--icon-square" *ngIf="config.baseUrl" (click)="openAccountPage()" [disabled]="!accountControl.value || accountControl.invalid"><fa-icon [icon]="faLink" /></button>
+  <button class="button--icon button--icon-square" (click)="clear()" [disabled]="!accountControl.value || (personService.isSavingSocialMediaAccounts$ | async)"><fa-icon [icon]="faTimes" /></button>
+</form>

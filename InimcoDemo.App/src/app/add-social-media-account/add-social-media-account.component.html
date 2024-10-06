@@ -1,0 +1,17 @@
+<div class="card">
+  <h2 class="card__title">Where can you contact <i>{{person.firstName}}</i></h2>
+  <div class="account__list">
+    <app-social-media-account-form [config]="facebookAccountConfig" (socialMediaAccountUpdated)="updateSocialMediaAccount($event)" />
+    <app-social-media-account-form [config]="linkedInAccountConfig" (socialMediaAccountUpdated)="updateSocialMediaAccount($event)" />
+    <app-social-media-account-form [config]="xTwitterAccountConfig" (socialMediaAccountUpdated)="updateSocialMediaAccount($event)" />
+    <app-social-media-account-form [config]="redditAccountConfig" (socialMediaAccountUpdated)="updateSocialMediaAccount($event)" />
+    <app-social-media-account-form [config]="discordAccountConfig" (socialMediaAccountUpdated)="updateSocialMediaAccount($event)" />
+  </div>
+  <div class="card__actions">
+    <button *ngIf="(personService.isSavingSocialMediaAccounts$ | async) === false; else loader" class="button--primary" (click)="saveSocialMediaAccounts()">Save social media accounts and finalize</button>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader />
+</ng-template>
