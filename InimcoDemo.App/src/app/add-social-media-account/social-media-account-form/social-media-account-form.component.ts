@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SocialMediaAccountConfig } from './social-media-account-config';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { BaseComponent } from '../../base/base.component';
 import { PersonService, SocialMediaAccount } from '../../../services/person.service';
 import { debounceTime, takeUntil } from 'rxjs';
@@ -37,7 +37,7 @@ export class SocialMediaAccountFormComponent extends BaseComponent implements On
 
   public ngOnInit(): void {
     this.accountForm = new FormGroup({
-      account: new FormControl<string | null>(null, this.config.validators)
+      account: new FormControl<string | null>(null, this.usernameValidator(this.config.userNameRegExp))
     });
 
     this.accountControl.valueChanges
@@ -77,4 +77,14 @@ export class SocialMediaAccountFormComponent extends BaseComponent implements On
 
     window.open(`${this.config.baseUrl}${this.accountControl.value}`, '_blank');
   }  
+
+  private usernameValidator(pattern: RegExp): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;
+      }
+
+      return pattern.test(control.value) ? null : { invalidUsername: true };     
+    };
+  }
 }

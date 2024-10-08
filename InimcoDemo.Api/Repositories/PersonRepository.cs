@@ -17,7 +17,9 @@ namespace InimcoDemo.Api.Repositories
 
     public class PersonRepository : IPersonRepository
     {
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new() { WriteIndented = true };
         private readonly PersonDbContext _personDbContext;
+
         public PersonRepository(PersonDbContext personDbContext) {
             _personDbContext = personDbContext;
         }
@@ -99,34 +101,32 @@ namespace InimcoDemo.Api.Repositories
             return sb.ToString();
         }
 
-        private int GetVowelCount(string value)
+        private static int GetVowelCount(string value)
         {
             if(string.IsNullOrWhiteSpace(value)) return 0;
 
             return value.ToLowerInvariant().Count("aeiou".Contains);
         }
 
-        private int GetConsonantCount(string value)
+        private static int GetConsonantCount(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return 0;
 
             return value.ToLowerInvariant().Count("bcdfghjklmnpqrstvwxyz".Contains);
         }
 
-        private string GetReversedString(string value)
+        private static string GetReversedString(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return value;
 
             return new string(value.Reverse().ToArray());
         }
 
-        private string? SerializeObject(object obj)
+        private static string? SerializeObject(object obj)
         {
             if (obj == null) return null;
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            var objString = JsonSerializer.Serialize(obj, options);
-            return objString;
+            return JsonSerializer.Serialize(obj, _jsonSerializerOptions);
         }
     }
 }

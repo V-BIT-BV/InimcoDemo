@@ -73,6 +73,7 @@ export class AddSkillsComponent extends BaseComponent implements OnInit {
     }
 
     this.skills.splice(skillIndex, 1);
+    this.skillControl.updateValueAndValidity();
   }
 
   private uniqueValidator(skills: string[]): ValidatorFn {

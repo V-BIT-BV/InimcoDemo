@@ -1,3 +1,23 @@
 :host {
   display: block;
 }
+
+.account {
+  display: flex;
+  gap: 1rem;
+  align-items: center;        
+
+  & > fa-icon {
+      font-size: 28px;
+      color: #44107B;
+
+      &.error {
+          color: #B00020
+      }
+  }
+
+  span {
+      flex-grow: 1;
+      user-select: none;
+  }
+}

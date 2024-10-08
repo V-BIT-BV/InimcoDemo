@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, delay, map, tap } from "rxjs";
+import { BehaviorSubject, Observable, map, tap } from "rxjs";
 
 export interface Person {
     id: string,
@@ -67,7 +67,7 @@ export class PersonService {
         return this.http.post(`${this._baseUrl}/${personId}/skills`, request)
             .pipe(
                 tap(_ => this._isSavingSkills$.next(false)),
-                map(res => true)
+                map(_ => true)
             )
     }   
 
@@ -81,7 +81,7 @@ export class PersonService {
         return this.http.post(`${this._baseUrl}/${personId}/socialmediaaccounts`, request)
             .pipe(
                 tap(_ => this._isSavingSocialMediaAccounts$.next(false)),
-                map(res => true)
+                map(_ => true)
             )
     }
 
