@@ -19,5 +19,9 @@
       gap: 0.25rem;
       user-select: none;
       height: 1.5rem;
+
+      &:hover {
+        text-decoration:line-through;
+      }
   }
 }
